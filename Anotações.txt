@@ -1,0 +1,102 @@
+Para chamar um arquivo js para o html se usa a tag "<script src="enderço do arquivo js"></script>" É recomendado chamar esse arquivo no final da página, pois assim ele será carregado após todos os outros componentes terem sido carregados. Mas tem uma função no html chamada de "defer" que faz com que o arquivo js seja carregado ao fim da página.
+    Exemplo:
+        ...
+        <script src="index.js" defer></script>
+        ...
+
+Para dar print em uma mensagem se usa o comando:
+    console.log('Olá, mundo!')
+
+Sintax:
+    Não colocar letras maísculas em comandos normais;
+
+Comentários:
+    Existem dois tipos de comentários são de uma linha = "//" ou multiplas linhas = "/* */":
+        // Comentário = Uma linha só
+
+        /* 
+            Comentário 1
+            Comentário 2
+            Comentário 3
+        */ = multiplas linhas
+
+Tipos primitivos:
+    Tem como saber qual é o tipo da variável usando o comando "typeof":
+        console.log(typeof Number('123'));
+        console.log(typeof '123');
+
+    String:
+        Podemos declarar que uma frase é uma str de 3 formas diferentes:
+            1 - var nome = 'Luiz'; 
+            2 - var nome = "Luiz";
+            3 - var nome = `Luiz`;
+        As aspas simples e duplas tem a mesma funcionalidade. Mas a craze serve para ecrever multiplas linhas sem precisar usar \n (barra invertida + enter).
+        Tem como trasformar um number em str:
+            console.log(String(554544354))
+    
+    Number:
+        No terminal mostra de forma diferente com a cor amarela; equanto as strs são brancas;
+
+            console.log(123 + 1 ); = Se somarmos com um number ele vai ser considerado como sendo esse número: 124
+
+            console.log("123" + 1) = Se somarmos com uma  string vai concatenar e mostrar assim: 1231
+
+            console.log("123" - 1) = Ele vai subtrair e mostrar assim: 122
+
+        Observações:
+            (Forma correta de se usar)
+            123 + 1 = 124
+
+            (Assim pode gerar bugs)
+            "123" + 1 = 1231
+            "123" - 1 = 122
+            "123a" - 1 = Nan (Not a Number)
+            "123" * 2 = 246
+            "123" / 2 = 61,5
+        
+        Pode converter uma str para number:
+            console.log(Number("123")+1)
+        
+    Boolean:
+        Só aceita dois valores: true ou false
+        Geralmente usado para validações:
+            console.log(false);
+            console.log(true);
+
+            console.log('*********')
+
+            console.log(1===2); = false
+            console.log(2===2); = true
+    
+    Undefined e Null:
+        O undefinde é quando tem algo que não foi definido ainda, por exemplo:
+            var n1;
+        Já o null é quando queremos dizer que essa variável não possui valor, por exemplo:
+            var n1 = null;
+        Os dois são diferente, um é indefinido e outro é sem valor.
+    
+    Array:
+        É como uma lista em Python, onde você coloca vários itens dentro dela.
+        Exemplos:
+            var pets = ["cachorro", "gato"];
+        Para contar quantos elementos tem em uma lista usamos o ".length":
+            console.log([1,2,3].length);
+
+    Object:
+        São coisas mais complexas do que os arrays, pois permitem armazenar muitas informações juntas.
+        Eles possuem chaves entre {} e os valores são colocados após as chaves com : separando.
+        Exemplos:
+            var pessoa = {
+                nome: 'João',
+                idade: 20,
+                profissao: 'Programador'
+            }
+            console.log(pessoa.profissao); //Imprime a profissão de João
+            
+            var carro = {
+                cor: 'Vermelho',
+                0: 'Fiat',
+                modelo: 'Palio'
+            };
+            console.log(carro[0]); //Imprime Fiat
+        É como um dicionáriodo Python.
