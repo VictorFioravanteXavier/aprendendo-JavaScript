@@ -10,6 +10,8 @@ Para dar print em uma mensagem se usa o comando:
 Sintax:
     Não colocar letras maísculas em comandos normais;
 
+
+
 Comentários:
     Existem dois tipos de comentários são de uma linha = "//" ou multiplas linhas = "/* */":
         // Comentário = Uma linha só
@@ -19,6 +21,8 @@ Comentários:
             Comentário 2
             Comentário 3
         */ = multiplas linhas
+
+
 
 Tipos primitivos:
     Tem como saber qual é o tipo da variável usando o comando "typeof":
@@ -100,3 +104,429 @@ Tipos primitivos:
             };
             console.log(carro[0]); //Imprime Fiat
         É como um dicionáriodo Python.
+
+
+
+Operadores aritimeticos:
+    Adição:
+        É somar utilizamos o "+";
+            Soma números normais :  5 + 7;
+            Soma strings (concatenacao): "Olá" + " Mundo!";
+
+    Subtração:
+        Utiliza o "-".
+            5 - 3 = 2
+            '5' - 3 = 2
+
+    Multiplicação:
+        Usado por "*"
+            4 * 6 = 24
+
+    Divisão:
+        "/" é o símbolo da divisão.
+            O resultado sempre será um número inteiro (sem casa decimal).
+            9 / 3 = 3
+        
+        Resto:
+            Para saber o que sobra após uma divisão, usamos o "%".
+                11 % 3 = 2
+    
+    Atribuição:
+        Se utiliza os sinais "=", "+=", "-=", "*=" e "/=".
+            let a = 1; "let é só para criar a váriavel"
+            a += 1;
+            a -= 1;
+            a *= 1;
+            a /= 1;
+        
+    Comparação:
+        Se utiliza "==", "===", "!=", "!==", ">", "<", ">=" e "<=".
+
+        Sobre:
+            ==:
+                Verdadeiro se forem iguais independentemente do tipo de dados.
+                1 == 1 -> true
+                1 == '1' -> true
+                1 == true -> true
+                0 == false -> true
+
+            ===:
+                Verdadeiro somente se forem iguais e do mesmo tipo de dados.
+                    1 === 1 -> true
+                    1 === '1' -> false
+                    1 === true -> false
+                    0 === false -> false
+            
+            !=:
+                Falso se forem iguais independentdo do tipo de dados.
+                    1 != 1 -> false
+                    1 != 2 -> true
+                    1 != '1' -> false
+                    1 != true -> false
+            
+            !==:
+                Falso somente se forem diferentes ou do tipo diferente de dados.
+                    1 !== 1  > false
+                    1 !== 2 -> true
+                    1 !== '1' -> ture
+                    1 !== true -> ture
+            
+            >:
+                Maior que (maior).
+                    1 > 2 -> false
+                    1 > 0 -> true
+
+            <: 
+                Menor que (menos)
+                    2 < 1 -> false
+                    0 < 1 -> true
+            
+            >= : 
+                maior ou igual a
+                    1 >= 2 -> false
+                    1 >= 1 -> true
+                    1 >= 0 -> true
+            
+            <=:
+                Menor ou igual a (Menos ou Igual)
+                    2 <= 1 -> false
+                    0 <= 1 -> true
+                    1 <= 1 -> true
+
+    Lógicos:
+        && (E): Retorna verdadeiro apenas se todos os operandos forem verdadeiros.
+            1===1 && 2 >= 1  -> true
+            1 === 2 && 2 > 1   -> false
+
+        || (OU): Retorna verdadeiro quando algum dos operandos for verdadeiro.
+            1 === 2 || 2 > 1   -> true
+            1 === 1 || 2 > 1   -> true
+            1 === 2  || 1 === "1" -> false
+
+        !  (Não): Ve se o resultado fornecido apos ele é falso, retorna Verdadeiro e vice-versa.
+            !(1 === 2) -> true
+            !(true == false) -> true
+            !(1===1) ->  false
+    
+    Procedência:
+        Os operadores de atribuição (= , += -= *= /= %= <<= >>= >>>= **=) tem prioridade sobre outros operadores.
+        O JavaScript executa as operações de acordo com a precedência das operações matematicas,  que é o ():
+            15 * (20 / 10) -> Resultado será 63
+            (15 * 20) / 10 === 10 && 10 * 10 === 14 -> Falso
+
+
+
+Váriaveis:
+    São usadas para salvar dados que vão ser usados posteriormente no programa. Podem ter tipagem dinâmica ou estática.
+        - Variável são como caixinhas para guardar informações;
+        - Podem ter nomes qualquer, mas devem começar com uma letra ou underscore (_);
+        - Não podem usar palavras reservadas do JavaScrit;
+        - São case sensitive (sensíveis a maiúsculas e minúsculas).
+    
+    Podemos declarar variaveis usando:
+        var  = Declaração da variável. Ele é utilizado globalmete;
+        let  = Let é mais moderno e tem escopo limitado a bloco onde foi criada. Ele é gerado dentro de uma escopo;
+        const= Constante não pode ser alterada depois de declarada. Ele é gerado dentro de uma escopo e só pode armazenar dados 1x;
+    
+    Escopo:
+        Determina quais dados podem ser acessados em uma determinada parte do código. let e const tem escopos mais restritos do que var.
+        Var:
+            - Seu valor persiste até o fim do script;
+        Let:
+            - Definido no bloco onde foi criado, e não persiste após este bloco;
+        Const:
+            - Definida no bloco onde foi criada, e também não persiste após este bloco;
+
+
+
+Condicionais:
+    if (condição){ 
+        //executará esse código caso a condição seja verdadeira 
+    } else if (condição){
+        //executará esse código caso a condição seja verdadeira 
+    } else { 
+        //executará esse código caso a condição seja falsa 
+    }
+
+    Falsy e Truthy:
+        Falsy = false, 0, '', NaN, undefinde e null
+        Truthy = todos que sejam diferentes de "Falsy"
+
+    Para fazer ou ver se uma expreção que usa o if seja falsa ou falsy, usamos o "!" antes  dela. Exemplo:
+        if(!valor) {}
+
+    Operadoe Ternário:
+        Utilizamos  quando queremos executar um trecho de códigos dependendo de uma condição.
+        "?" Serve para dizer "Se for true faça isso", e ":" senão "faça isso". Ou para simplificar:
+            condção ? true : false;
+
+        Exemplo:
+            const velocidade = 75;
+            const warn = 85;
+
+            const condicao = velocidade >= warn ? console.log("Recebeu uma multa.") : console.log("Continua andado!");
+
+              ou se utilizarmos if normal
+
+            if (velocidade >= warn){
+                console.log("Recebeu uma multa.")
+            } else{
+                console.log("Continua andado!")
+            }
+    
+    Switch:
+        É mais seguro do que os If's normais, pois ele compara diretamente com o valor da variável.
+
+        Base:
+            switch (key) {
+                case value:
+                    
+                    break;
+
+                default:
+                    break;
+            }
+        
+        É igual o match case do python
+    
+
+
+Repetição:
+    For:
+        For normal só muda a forma que ele é escrito:
+            for(let i = 0; i <= 10; i++){
+                console.log(i);
+            }
+            Obs:
+                let i = 0 = inicia a váriavel e 0 é o valor inicial dela.
+                i <= 10 - condição de parada para o loop.
+                i++ - incremento da váriavel.
+
+
+
+Funções:
+    É um conjunto de instruções que executa uma tarefa ou calcula um valor.
+    tipos de funçoes;
+        1 - Functions Declaration:
+            function isValid() {
+                const soma = 1 + 2;
+
+                return soma;
+            }
+
+            console.log(isValid())
+
+            Ou
+
+            function isValid() {
+                const soma = 1 + 2;
+
+                if (soma === 3) {
+                    return true;
+                }
+                return false;
+            }
+
+        2 - Functions Exprecion; É criada apartir de uma const, let ou var:
+            const isValid = function() {
+                return false;
+            }
+
+
+        3 - Arrow Functions:
+            const isValidArrow = () => 2*2;
+            ou
+            const isValidArrow = () => {
+                const multiplicacao = 2*2
+                return multiplicacao;
+            };
+    
+    Parâmetros e Argumentos:
+        function soma(n1, n2) {
+            if(typeof n1 === 'number' && typeof n2 === 'number'){
+                return n1 + n2; 
+            };
+            return 'Erro: Os valores devem ser do tipo Numero';
+        };
+
+        console.log(soma(1, 3)) //Resultado: 8
+    
+    Hoisting:
+        Funciona que tudo que for declaro em JS é levado para o topo do escopo da variável. Não funciona para arrow functions
+        Var:
+            console.log(a); // Resultado: Undefined
+            var a = 1;
+
+            Funcionamento:            
+                var a;
+                console.log(a); // Resultado: Undefined
+                a = 1;
+            
+        Let e Const:
+            console.log(b); // Resultado: ReferenceError: b is not defined
+            let b = 1;
+                
+        Func:
+            console.log(c()); // Resultado: 3
+            function c(){return 1 + 2;}
+
+            Funcionamento:
+                function c(){return 1 + 2;}
+                console.log(c()); // Resultado: 3
+
+    IIFE =  Immediately Invoked Function Expression (Expressão de Função Invocada Imediatamente):
+        É basicamente uma função que se chama  automaticamente no momento em que é criada.
+            Exemplo sem parênteses:
+                !function(){
+                    console.log('Teste');
+                }();
+
+            Exemplo com parênteses:
+                (function(){
+                    console.log('Teste');
+                })();
+
+    Strict:
+        O strict mode elimina alguns erros silenciosos que passariam batido no JavaScript e os faz emitir erros.
+        Alem disso, essa forma corrije alguns erros que tornam o JavaScript difícil de ser otimizado, então algumas vezes os códigos no modo estrito rodam mais otimizados do que os códigos no "modo normal".
+        link: http://www.geeksforgeeks.org/strict-mode-javascript/
+        
+        Ele faz com que erros mais antigos sejam lançados como erro do JavaScript moderno, o que ajuda a evitar bugs legais.
+
+        para usar ele basta colocar o comando:
+            'use strict'
+        no começo do seu código
+
+    Funções Construtoras;
+        São usadas quando queremos criar um novo objeto apartir de outro, por exemplo:
+            function Calculadora(){
+                this.soma = (v1, v2) => {
+                    return `${v1+v2}`
+                };
+                this.subitracao = (v1, v2) => {
+                    return `${v1 - v2}`;
+                };
+            }
+
+            const calculo = new Calculadora();
+
+            console.log(calculo.soma(10, 10));
+            console.log(calculo.subitracao(10, 10))
+
+        Agora a const calculo pode chamar as funções soma ou subitracao como a Calculadora. Outro exemplo:
+            function Name(nome, sobrenome) {
+                this.nome = nome;
+                this.sobrenome = sobrenome;
+                this.nomeCompleto = () => {
+                    return `${this.nome} ${this.sobrenome}`
+                }
+            }
+
+            const dener = new Name('Dener', "Troquatte");
+            const victor = new Name('Victor')
+
+            console.log(dener.nomeCompleto())
+            console.log(victor.nome)
+
+    Closure:
+        Uma closure ocorre normalmente quando uma função é declarada dentro do corpo de outra, e a função interior referencia variáveis locais da função exterior;
+        Básicamente  é uma função dentro de outra função que tem acesso às variáveis locais da função exterior. E as funções de dentro não podem ser usadas fora da função mãe; Exemplo:
+            function Calculadora(num1, num2){
+            const msg = 'Resultado:';
+            const Soma = () => {
+                return  `${msg} ${num1 + num2}`; 
+            }
+            const Subitracao = () => {
+                return  `${msg} ${num1 - num2}`; 
+            }
+            const Multiplicacao = () => {
+                return  `${msg} ${num1 * num2}`; 
+            }
+            const Divizao = () => {
+                return  `${msg} ${num1 / num2}`; 
+            }
+
+            return{
+                soma: Soma(),
+                subtracao: Subitracao(),
+                multiplicacao: Multiplicacao(),
+                divisao: Divizao(),
+            }
+        }
+
+        console.log(Calculadora(10,5)) // Saída: {
+                                                    soma: 'Resultado: 15',
+                                                    subtracao: 'Resultado: 5',
+                                                    multiplicacao: 'Resultado: 50',
+                                                    divisao: 'Resultado: 2'
+                                                 }   
+
+    Só pode puxar valores dentro do return por exemplo:
+        console.log(Calculadora(10,5).soma); // Resultado: 15
+        console.log(Calculadora(10,5).divisao); // Resultado: 2 
+        console.log(Calculadora(10,5).Multiplicacao()) // TypeErro! Multiplicacao is not a function
+
+
+Destruturing:
+
+
+
+Comandos úteis:
+    .toFixed(...) = arredonda os valores para casas decimais. Ex.: 
+        34.67891234567890.toFixed(2); //Retorna 34.68
+
+
+    includes(str ou array) é uma função disponível em arrays e strings no JavaScript, que retorna true se o array ou string contém um determinado elemento ou substring, Exemplo:
+        const array = [1, 2, 3, 4, 5];
+        console.log(array.includes(3)); // Saída: true
+        console.log(array.includes(6)); // Saída: false
+          ou
+        const string = "Olá, mundo!";
+        console.log(string.includes("mundo")); // Saída: true
+        console.log(string.includes("foo"));   // Saída: false
+
+
+    .length  = retorna quantos elementos tem em um array ou quantos caracteres tem em uma string. Exemplo:
+        const array = ["A", "B", "C"];
+        console.log(array.length); //Saida: 3
+         ou
+        const string = "Olá, mundo!";
+        console.log(string.length); //Saida: 13
+    
+
+    .toLowerCase() = transforma todos os caracteres de uma string em minúsculo. Ex.:
+        const string = "Olá, Mundo!";
+        console.log(string.toLowerCase()); //Saida: olá, mundo
+    
+
+    .replace(busca, substitui) = procura por palavras específicas dentro de uma string e as troca por outras lenbrando que é só a primeira estancia. Ex.:
+        let x = 'Olá mundo';
+        console.log(x.replace('Olá', 'bom dia')); //Substitui "olá" por "bom dia". Saída: Bom dia mundo
+    
+
+    .replaceAll(busca, substitui) = funciona como o replace acima, mas troca todas as ocorrências da busca pela substituição.
+
+
+    continue; = Pula uma casa na contagem do for;
+        Para usar o comando continue basta colocar no começo da iteração onde você quer pular.
+        Por exemplo:
+            for (var c = 0 ; c <= 10 ; c++) {
+            if (c == 5) {
+                continue; //Pula a iteração atual
+            }
+            console.log(c);
+            }
+
+    arguments; = É usado para acessar os argumentos passados para uma função. Ele é um objeto especial que armazena essas informações. Não funciona em funções do tipo arrow;
+
+    SetTimout()  = é usado para adiantar a execução de alguma função. Ele recebe dois parâmetros, o primeiro é a função que será executada e o segundo é para definir o tempo em ms(milesegundos 1000ms = 1s):
+        SetTimout(
+            function exemplo(){},
+            1000
+        )
+        Vai espeara 1 segundo e depois executa a função que está dentro dela.
+    
+    in = Verifica se existe algum elemento dentro de um array. Retorna true ou false.
+        const num = 26;
+        const numeros = [2, 4, 7, 19];
+        console.log(num in numeros); //Retorno: false
