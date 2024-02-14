@@ -293,6 +293,7 @@ Condicionais:
 
 Repetição:
     For:
+        for ([inicialização]; [condição]; [expressão final])
         For normal só muda a forma que ele é escrito:
             for(let i = 0; i <= 10; i++){
                 console.log(i);
@@ -302,7 +303,30 @@ Repetição:
                 i <= 10 - condição de parada para o loop.
                 i++ - incremento da váriavel.
 
+    For of:
+        É como o "for i in..." do python; É geralmente usado para trabalhar com arrays;  Ele vai percorrendo todos os itens do array/objeto e executando um bloco de código
+            for (let i of array) {
+                //codigo
+            };
 
+    For in:
+        Para arrays ou objetos. Ele retorna as chaves dos dados. Geralmente usado só para obejtos;
+            for (let key in obj){
+                // código
+            }
+    
+    Continue e Break:
+        Eles tem a mesma função do continue e do break do python , mas no js eles são utilizados em loops normais.
+
+         Continue -  vai pular todo o restante do laço atual e avançar direto pro próximo ciclo.
+         Break -  vai sair do laço inteiro, encerrando assim o laço onde está inserido.
+    
+    Foreach:
+        É para um for of mas com menos linhas e com algumas funcionalidades a mais.
+             array.forEach((item, index ....) => {
+                 //código
+             })
+        Não pode usar "brack" nem "continue" somente "return";
 
 Funções:
     É um conjunto de instruções que executa uma tarefa ou calcula um valor.
@@ -467,7 +491,330 @@ Funções:
         console.log(Calculadora(10,5).Multiplicacao()) // TypeErro! Multiplicacao is not a function
 
 
-Destruturing:
+Objetos afundo:
+    Estrutura:
+        Obj = {} ou obj = new Object();
+    
+    Indeces e Elementos:
+        Para buscar elementos em objetos usamos .escolha ou podemos simplismente colocar em uma váriavel do mesmo nome;
+        Tem como colocar para uma função dar um return  de um objeto em vez de um valor.
+        
+        Exemplo:
+            function Tenis(tamanho, estoque, preco){
+                return{
+                    tamanho,
+                    estoque,
+                    preco: preco,
+                }
+            }
+    
+    Destruturing:
+        Tem como  separar os elementos que estão dentro da função.
+        
+        Exemplo:
+             const {tamanho, estoque, preco} = Tenis('43','10','98');
+             
+             console.log(tamanho) // Saida: 43
+             console.log(estoque) // Saida: 10
+             console.log(preco)   // Saida: 98
+        
+        Tem como mudar o nome  dos atributos.
+         
+         Exemplo:
+             const {tamanho: tamanhoTenis, estoque: estoqueTenis, preco: precoTenis} = Tenis('43','10','98')
+        
+        Tambem tem como achar objetos dentro de objetos:
+            Exemplo:
+                 link{a:'a', b:{c:'c'}} 
+                 const{a, b:{c}} = link
+    
+    Verificar a existencia de um dado:
+        Só colocar o "x in obj".
+            console.log('tamano' in Tenis) // Saída: true
+    
+    Adicionanado e Atualizando dados:
+        Alterar:
+             let tenis = {
+                 tamanho: 45,
+                estoque: true,
+             };
+
+             tenis.tamanho = 42;
+
+        Adicionanado:
+             tenis.preco = 'R$ 42'
+              Ou
+             tenis['preco'] = 'R$ 42'
+
+    Removendo Propridedades:
+        Se usa o delete;
+            delete tenis.estoque;
+
+    Clonagem de objetos rasos e profundos:
+        rasos:
+            São obejtos que se mudamos um valor deles ele afeta o outro também;
+                Clonando:
+                    let tenis = {
+                        tamanho: 45,
+                        estoque: true,
+                    };
+
+                    let clone1 = tenis;
+
+                    Mas tem um problema que ele se torna o objeto então se ele tiver alguma altetração vai mudar o original tambem; 
+
+                Mesclando:
+                    Tu vai usar os comandos "Object.assingn(o que quer mesclar)":
+                        let mesclar1 = Object.assign(tenis,link)
+                    
+                    Ou pode usar outro comando:
+                        let mesclar2 = {...tenis, ...link};
+                    os três pontos referenciam os elementos dos objetos;
+
+                    Ambos tem o problema de serem rasos, pois se alterar um elemento do original ele muda no clonado também
+        
+        profundos:
+            Se mudarmos  alguma coisa no obj clonado ela não irá afetar o original;
+                Cloanado:
+                    Para clonar um obejto utilizamos  "JSON.parse()" e "JSON.stringify()"; 
+                     JSON.stringify = transforma o obejto em uma string;
+                     JSON.parse = Transforma a string em um Obj;
+
+                    Exemplo:
+                         let clone1 = JSON.parse(JSON.stringify(tenis));
+                         clone1.estoque = false;
+
+                         console.log(1, clone1);// Saída: 1 { tamanho: 45, estoque: false }
+                         console.log(2, tenis);// Saída: 2 { tamanho: 45, estoque: true }
+
+                Mesclando:
+                    Usamos o JSON novamente mas utizando o mesmo método dos rasos:
+                    
+                    Exemplo:
+                         function cloneObj(obj) {
+                             return JSON.parse(JSON.stringify(obj));;
+                         };
+
+                         let mesclar1 = Object.assign(
+                             cloneObj(tenis),
+                            cloneObj(link)
+                         );
+
+                         let mesclar2 = {
+                             ...cloneObj(tenis), 
+                            ...cloneObj(link)
+                         };
+
+
+Arrays a fundo: 
+    - São similares aos Objetos porém possuem apenas chaves numericas;
+    - Possuem índices para cada elemento;
+
+    Para ver quantos  elementos temmos podemos usar o ".length":
+        const array = [1,2,3,true,'nome','Victor'];
+        console.log(array.length)
+
+    Tem como colocar arrays dentro de arrays:
+        const arr = [
+                [1,2,3],
+                [4,5,6],
+                [7,8,9],
+                [
+                    [1,2,3],
+                    [4,5,6],
+                    [7,8,9],
+                    [
+                        [1,2,3],
+                        [4,5,6],
+                        [7,8,9],
+                    ]
+                ]
+            ]
+
+            console.log(arr[0][0]) // 1
+    
+    console.table(array); = Cria uma tabela com as informações dos elementos do array. index, propridedades e valores nessa ordem:
+        ┌─────────┬──────────┬────────┐
+        │ (index) │ nome     │ Values │
+        ├─────────┼──────────┼────────┤
+        │ 0       │          │ 1      │
+        │ 1       │          │ 2      │
+        │ 2       │          │ 3      │
+        │ 3       │          │ true   │
+        │ 4       │          │ 'nome' │
+        │ 5       │ 'Victor' │        │
+        └─────────┴──────────┴────────┘
+
+    Destruturing:
+         É uma forma mais simples e limpa de pegarmos dados do array.
+         Pode ser usado tanto no inicio quanto no final da declaração.
+
+        Exemplo:
+             const [a, b, c] = [1,2,3];
+             console.log(a); // 1
+             console.log(b); // 2
+             console.log(c); // 3
+
+    Spread Operador;
+        Funciona colocando três pontos antes dos valores que você quer espalhar. Geralmente utilizado quando uma certa funcionalidade só permite "nums" por exemplo "Math.max": 
+            const array = [1,2,3,4,5];
+            console.log(...array); //Saída: 1 2 3 4 5
+            console.log(Math.max(...array)); // Retorna o maior valor do Array
+    
+    Adicionanado elementos:
+        unshift: 
+            adiciona um ou mais itens no começo da array.
+
+            Exemplo:
+                 let arr = [1,2,3,4,5];
+                 arr.unshift(0);
+                 console.log(arr)       
+
+        push:
+            adiciona um ou mais itens na ultima posição da array.
+
+            Exemplo:
+                 let arr = [1,2,3,4,5];
+                 arr[5] = 6;
+                  ou
+                 arr.push(6);
+
+    Removendo elementos:
+        shift:
+            remove o primeiro elemento da array e retorna ele. Também se precisar do item removido ele mostra o item e depois remove podendo printar ou colocar em uma váriavel;
+
+            Exemplo:
+                 let arr = [1,2,3,4,5];
+                 console.log(arr.shift());
+                 console.table(arr);
+
+        pop:
+            remove o último elemento da array e retorna ele. Também se precisar do item removido ele mostra o item e depois remove podendo printar ou colocar em uma váriavel;
+
+            Exemplo:
+                 let arr = [1,2,3,4,5];
+                 console.log(arr.pop())
+                 console.table(arr);
+        
+        slice:
+            Extrai uma parte de um array e retorna com os valores entre two-params (inicio e fim). Lembrando que o fim não é incluído. Ele só faz a cópia não retira os dados da array;
+            
+            Exemplo:
+                 let arr = [
+                     {nome: 'Eu', tel: '(99) 9999-9999'},
+                     {nome: 'Tu', tel: '(99) 9999-9999'},
+                     {nome: 'Nois', tel: '(99) 9999-9999'},
+                     {nome: 'Voz', tel: '(99) 9999-9999'},
+                     {nome: 'Elez', tel: '(99) 9999-9999'},
+                 ]
+ 
+                 const newarr = arr.slice(0,3);
+                 console.table(newarr) 
+                 Saida:  ┌─────────┬────────┬──────────────────┐
+                         │ (index) │ nome   │ tel              │
+                         ├─────────┼────────┼──────────────────┤
+                         │ 0       │ 'Eu'   │ '(99) 9999-9999' │
+                         │ 1       │ 'Tu'   │ '(99) 9999-9999' │
+                         │ 2       │ 'Nois' │ '(99) 9999-9999' │
+                         └─────────┴────────┴──────────────────┘
+
+                 const newarr2 = arr.slice(2,4);
+                 console.log(newarr2)   
+                 Saida: ┌─────────┬────────┬──────────────────┐
+                        │ (index) │ nome   │ tel              │
+                        ├─────────┼────────┼──────────────────┤
+                        │ 0       │ 'Nois' │ '(99) 9999-9999' │
+                        │ 1       │ 'Voz'  │ '(99) 9999-9999' │
+                        └─────────┴────────┴──────────────────┘   
+
+            Básicamente tu extrai um intervalo de posições do array e retorna como novo array.
+
+        splice:
+            Esse método altera o tamanho do array original e também pode adicionar ou remover elementos desse array. Funciona da mesma forma que o slice tendo que colocar o indece de inicio e o de final
+
+            Exemplo:
+                 arr.splice(0,3);
+                 console.table(arr)
+                 Saida:  ┌─────────┬────────┬──────────────────┐
+                         │ (index) │ nome   │ tel              │
+                         ├─────────┼────────┼──────────────────┤
+                         │ 0       │ 'Voz'  │ '(99) 9999-9999' │
+                         │ 1       │ 'Elez' │ '(99) 9999-9999' │
+                         └─────────┴────────┴──────────────────┘ 
+            
+            Tambem serve para remover somete uma faixa de elementos em um determinado indice;
+
+                Exemplo:
+                     arr.splice(3,1);
+                     console.table(arr)
+                     Saida:  ┌─────────┬────────┬──────────────────┐
+                             │ (index) │ nome   │ tel              │
+                             ├─────────┼────────┼──────────────────┤
+                             │ 0       │ 'Eu'   │ '(99) 9999-9999' │
+                             │ 1       │ 'Tu'   │ '(99) 9999-9999' │
+                             │ 2       │ 'Nois' │ '(99) 9999-9999' │
+                             │ 3       │ 'Elez' │ '(99) 9999-9999' │
+                             └─────────┴────────┴──────────────────┘
+                    
+                     Removeu somente o index 3 do original 'Voz'
+
+    Ordenar e Reverter:
+        Ordenar:
+            Strings.
+                const stringArray = ['A', 'C', 'D', 'W', 'L', 'B'];
+                console.log(stringArray.sort())  // Retorna [ 'A', 'B', 'C', 'D', 'L', 'W']
+            
+            Numeros.
+                const numberArray = [10,20,30,40,50,10000,1,55,15];
+                console.log(numberArray.sort((a,b) => a - b));
+            
+            Objetos:
+                const objArray = [
+                    {
+                        nome : 'B'
+                    },
+                    {
+                        nome : 'C'
+                    },
+                    {
+                        nome : 'A'
+                    },
+                    {
+                        nome : 'D'
+                    }
+                ]
+
+                console.log(objArray.sort((a , b)=> a.nome.localeCompare(b.nome)));
+
+        Reverter: 
+            Strings.
+                const stringArray = ['A', 'C', 'D', 'W', 'L', 'B'];
+                console.log(stringArray.reverse());  // Retorna [ 'W', 'L', 'D', 'C', 'B', 'A' ]
+            
+            Numeros.
+                const numberArray = [10,20,30,40,50,10000,1,55,15];
+                console.log(numberArray.sort((a,b) => b - a));
+                 ou
+                console.log(numberArray.sort((a,b) => a - b).reverse());
+            
+            Objetos:
+                const objArray = [
+                    {
+                        nome : 'B'
+                    },
+                    {
+                        nome : 'C'
+                    },
+                    {
+                        nome : 'A'
+                    },
+                    {
+                        nome : 'D'
+                    }
+                ]
+
+                console.log(objArray.sort((a , b)=> a.nome.localeCompare(b.nome)).reverse());
+                 
 
 
 
@@ -530,3 +877,56 @@ Comandos úteis:
         const num = 26;
         const numeros = [2, 4, 7, 19];
         console.log(num in numeros); //Retorno: false
+    
+    Math.max(...); = Encontra o maior valor entre vários parâmetros.
+        console.log(Math.max(2, 9, 4, 7)); //Retorno: 9
+    
+    Map:
+        É bom pois permite manipular dados em uma array de forma mais organizada e facilitada. Por exemplo:
+             pedidos.map((elemento, index) => {
+                 if (elemento.id === 29){
+                     return elemento.alimento = 'Kibe';
+                 } 
+             });
+        Ele está fazendo uma validação se o pedido tem id 29 se tiver ele altera o valor do campo alimentio para Kibe;
+
+    Filter:
+        Como o proprio nome já diz ele é um filtro para os elementos que estão dentro do Array. Ele retorna novamente um Array com todos os elementos selecionados no return;
+         const filterRefri = pedidos.filter((element,index) => {
+             return element.bebida === "Refrigerante";
+         });
+    
+    Find:
+        A diferença entre o filter é que ele só busca a primeira estancia que encontar no elemento;
+             const findId = pedidos.find(elemto => {
+                 return elemto.id === 29;
+             })
+ 
+             console.log(findId)
+    
+    Every:
+        Todas as condições devem ser verdadeiras para retornar true. Se encontrar apenas uma falso vai retornar false.
+        No caso se tiver algum elemento igual em todas as propridedades de uma array com obj vai retornar true se tiver pelo menos uma diferente vai retornar false;
+        
+             const temRefri = pedidos.every(elemento => {
+                 return elemento.bebida === 'Refrigerante';
+             })
+
+    Some:
+        Ele vai ver se apenas 1 dos elementos tem o valor fornecido; retornado true se tiver e false se não tiver;
+
+             const existeAlimeto = pedidos.some(elemento => {
+                 return elemento.alimento === 'Sandubão de Picanha';
+             })
+             console.log(existeAlimeto)
+    
+    Reduce:
+        Funciona apenas para tipos de dados num; serve para pegar o total que tem nesses dados utilizado o comando:
+
+             const balancete = pedidos.reduce((total, element) => {
+                 return total + element.preco;
+             }, 0)
+
+             console.log(balancete)
+
+        Onde "0" é o numero que o total inicia e vai incrementando;

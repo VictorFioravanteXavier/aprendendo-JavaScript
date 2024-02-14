@@ -1,14 +1,7 @@
 const Tenis = {
     tamanho: 45,
     estoque: true,
-    marcas: [
-        {
-            nome:'Nike'
-        },
-        {
-            nome:'Adidas'
-        },
-    ],
+    marcas: [{nome:'Nike'},{nome:'Adidas'},],
     secret: 65415614561,
     n: 684654,
     link: {a: 'a', b: { c: 'c'}}
