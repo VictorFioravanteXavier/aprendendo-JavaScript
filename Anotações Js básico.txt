@@ -930,3 +930,4 @@ Comandos úteis:
              console.log(balancete)
 
         Onde "0" é o numero que o total inicia e vai incrementando;
+        

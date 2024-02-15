@@ -1,0 +1,213 @@
+Para referenciar o seu DOM em js deve colocar o seguinte código:
+    <script src="./caminho do documento js" defer></script>
+
+
+Para puxar alguma tag dentro do js pode usar os comandos:
+
+    querySelector:
+        Só seleciona o primeiro elemeto retratado;
+             "use strict";
+             const h1 = document.querySelector("h1"); // tag html
+ 
+             const p = document.querySelector('p'); // Só o primeiro <p> do html
+ 
+             console.log(h1);
+             console.log(p);
+        
+        Para pegar alguma classe ou id se utiliza:
+             const classP = document.querySelector('.paragrafo'); // chama a class retratada
+              ou
+             const idP = document.querySelector('#paragrafo') // chama o id retratado
+ 
+             console.log(classP);
+             console.log(idP);
+
+        Podemos chamar tags filhos usando os seguites comandos:
+             const classP = document.querySelector('pai filho');
+               ou 
+             const pai = document.querySelector('pai');
+             const filho = pai.querySelector('filho');
+
+
+    querySelectorAll:
+        Selecioa todas as tags chamadas e colcoca elas em uma NodeList seguindo a ordem em que estão colocadas no caso só seu index:
+             const p = document.querySelectorAll('p');
+             console.log(p)
+            Seleciona todos o paragrafos mas não colcoa em um array, sim retorna cada elemento separado:
+        
+        Exemplo para uso:
+             p.forEach((element,index) => {
+                 element.style.color= "#FFF";
+                 element.style.padding = '20px'
+                 if (index === 0){
+                     element.style.background = 'blue';
+                 };
+                 if(index === 1){
+                     element.style.background = 'red';
+                 };
+             });
+            Então para cada elemento que foi atingido na linha de cima eu posso fazer algo com ele.
+
+
+    getElementById:
+        Ele pega o elemento pelo seu id identificando o primeiro elemento mesmo se tiver mais de 1:
+             const p = document.getElementById('paragrafo')
+             console.log(p)
+    
+
+    getElementBuClass:
+        Ele pega todos os elementos que pertrncem a classe selecionada:
+             const p = document.getElementsByClassName('paragrafo')
+     
+             console.log(p);
+     
+             for (let element of p){
+                console.log(element);
+             } // Para dar print em cada elemento separado precisa ser assim forEach não funciona
+    
+
+    getElementsByTagName:
+        É bem limitado pois só pega a tag de elementos nada a mais:
+             const p = document.getElementsByTagName('p');
+             console.log(p)
+ 
+             for (let element of p){
+                 console.log(element)
+             } 
+
+
+
+Manipulando dados:
+
+    textContent e innerText:
+        Ambos servem para buscar o conteúdo interno de uma tag, porém innerText é um pouco diferente;
+         O innerText vai mostrar todo o texto entre as tags mas sem a formatação;
+         O textContent vai mostrar todo o texto junto da formatação;
+        
+        Exemplos:
+            1 - Mostra os textos dentro da tag p:
+                 const p = document.querySelector('p');
+ 
+                 console.log(p.textContent);
+                 console.log(p.innerText);
+            
+            2 - Troca o texto dentro da tag p:
+                 const p = document.querySelector('p');
+
+                 p.textContent = 'Hello World!';
+                 p.innerText = 'Word Hello';
+
+    innerHTML e createElement:
+         innerHTML - Serve para trocar ou adicionar coisas junto de tags HTML na nossa página;
+
+            Exemplo:
+                1 - Está trocando todo o conteúdo da div para "Esse é meu texto alterado" junto da tag "strong",
+                     const div = document.querySelector('div');
+                     console.log(1, div);
+    
+                     div.innerHTML = '<strong>Esse é meu texto alterado</strong>';
+                     console.log(2, div);
+
+               2 - Está adicionando "Esse é meu texto alterado" da div
+                     const div = document.querySelector('div');
+                     console.log(1, div);
+    
+                     div.innerHTML += '<strong>Esse é meu texto alterado</strong>';
+                        ou
+                     div.innerHTML = `${div.innerHTML}<strong>Esse é meu texto alterado</strong>`
+                     console.log(2, div); 
+        
+         createElement - Serve para criar elementos dinamicamente no nosso HTML e posteriormente colcocar informações dentro desse elemento;
+
+            Exemplo:
+                1 - Ele está criando uma tag 'ul' e colocando dentro de uma div;
+                     const elemetUL = document.createElement('ul');
+                     div.appendChild(elemetUL);
+                     console.log(elemetUL);
+
+                2 - Ele está criando o a tag "ul" depois em um forEach está adicionando "li" dentro desse "ul" e adicionando o conteúdo da array na "li" depois adicionando a ul à nossa div;
+                     const elemetUL = document.createElement('ul');
+
+                     [1,2,3].forEach((element) => {
+                         const elementLI = document.createElement('li')
+                         elementLI.innerText = element
+                         elemetUL.appendChild(elementLI);
+                     })
+
+                     div.appendChild(elemetUL);
+                     console.log(elemetUL);
+
+    Input Value:
+        Para pegar dados de formularios usamos o .value
+            Exemplo:
+                1 - Estamos pegando o valor do input com id="name", e mostrando esse valor com o value
+                 const input = document.querySelector('#name');
+ 
+                 console.log(input.value);
+                
+                2 - Estamos pegando o valor do in´put com o id='name', e depois de 1 segundo(1000 milesegundos) estamos trocando o valor para abacate e imprimindo ele;
+                     const input = document.querySelector('#name');
+ 
+                     console.log(input.value);
+
+                     setTimeout(() => {
+                         input.value = 'Abacate';
+                         console.log(input.value);
+                     }, 1000);
+        
+    Atribtos:
+        setAttribute - serve para trocar ou adicionar um atibuto no html, se tiver outro atibuto do mesmo tipo como uma class ele vai substituir a class;
+
+            Exemplo:
+                1 - Ele está adicionar o id na div;
+                     const div = document.querySelector('div');
+                     div.setAttribute('id', 'teste')
+                
+                2 - Para adicionar uma class e manter a que já estava utilizamos o getAttribute;
+                     div.setAttribute('class', `${div.getAttribute('class')} active`)
+                    
+        getAttribute - serve para pegar o atributos existentes;
+
+            Exemplo:
+                1 - Erro tem que chamar pelo menos um atributo;
+                     console.log(div.getAttribute()) // erro;
+                
+                2 - Está apenas chamando o atibuto class;
+                     console.log(div.getAttribute('class'))
+        
+        removeAttribute - serve para remover algum atributos existe;
+            Exemplo:
+                1 - Erro tem que ser referenciado pelo menos um atributo;
+                     div.removeAttribute() // erro
+                
+                2 - Está removendo id;
+                     div.removeAttribute('id')
+    
+
+    crateDocumnetFragment - é usada quando queremos criar algo sem ele estar direto em alguma posição da nossa página; isso economisa a memoria de precessamento do código:
+        Básicamente tu vai criar um fragmento que vcai conter o que você deseja inserir no html mas só vai se inserido quando todos as coisas para serem adicioadas já tiverm sido renderizadas;
+        
+        Exemplo:
+            1 - Ele tá pegando a "ul" do html, criando um "fragamento" e uma array "laches" com isso lanches entra em uma "forEach" que cria "li" e adiciona no "fragamento" e depois de ter criado todas as "li" e adicionado ele adiciona no documento principal no caso a "ul"
+                 const ul = document.querySelector('ul');
+                 const fragment = document.createDocumentFragment();
+    
+                 const lanches = ["Lanche 1", "Lanche 2", "Lanche 3", "Lanche 4"];
+    
+                 lanches.forEach(elemenet =>{
+                     const li = document.createElement('li');
+                     li.textContent = elemenet
+                     fragment.append(li)
+                 })
+    
+                 console.log(fragment);
+                 ul.append(fragment);
+    
+    Removendo um Elemento:
+        Para remover algum elemento usando o js se usa o '.remove';
+            Exemplo:
+                1 - Com indece:
+                     li[2].remove()
+
+                2 - Elemento avulso:
+                     h1.remove()
