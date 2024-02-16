@@ -211,3 +211,258 @@ Manipulando dados:
 
                 2 - Elemento avulso:
                      h1.remove()
+
+
+
+Manipulando Style:
+    Mudar o style usando js:
+        basta colocar a propriedade "style" de pois do elemento que deseja mudar:
+            
+            Exemplo:
+                1 - Ele está mudando a 'font-family' e o 'color' no js assim como no css
+                     const h1 = document.querySelector('h1');
+
+                     // font-family: 'Arial'
+                     h1.style.fontFamily = 'Arial';
+                     h1.style.color = 'red'; 
+                
+                2 - Ele está mudando todas as tags "p" seu 'font-family' e seu 'font-size' assim como no css
+                     const p = document.querySelectorAll('p');
+                     p.forEach((element) => {
+                         element.style.fontFamily = 'Arial';
+                         element.style.fontSize = '12px'
+                     })
+    
+        Ele não substitui a regra css, mas sim adiciona mais uma camada de estilo em cima dela; Só substituindo se for a mesma propriedade do css;
+    
+    classList:
+        Ele lista as classes da tag , é possivel adicionar ou remover uma classe com esse metodo.
+
+            Adcionar:
+                Para adiconar uma class em uma tag basta colocar:
+                    váriavel.classList.add('nomeDaClasse')
+                
+                Exemplo:
+                     const h1 = document.querySelector('h1');
+ 
+                     h1.classList.add('active', 'teste1'); // Pode se adicionar mais de uma classe por vez
+                     h1.classList.add('teste2');
+            
+            Remover:
+                Para  remover uma class em uma tag basta usar a função remove, passando a mesma class que você quer remover:
+                    váriavel.classList.remove('nomeDaClasse');
+                
+                Exemplo:
+                     const h1 = document.querySelector('h1');
+                     h1.classList.remove('teste2');
+                
+            Verificar se tem uma classe e remover se tiver ou vice versa: 
+                Para verificar se usa ".toggle" e se a class não estiver na tag ele vai adicionar, se ela estiver ele vai tirar.
+                    váriavel.classList.toggle('nomeDaClasse');
+                
+                Exemplo:
+                     const h1 = document.querySelector('h1');
+                     h1.classList.toggle('teste2');
+                
+            Verifica se tem uma determina classe:
+                para verificar se tem a classe na tag utilizamos '.contains'. Que retorna um boolean true ou false;
+                    váriavel.classList.contains('nomeDaClasse'); 
+                
+                Exemplo:
+                    1 - Ele está validando que te  a class active, retornaria true;
+                        h1.classList.contains('active') // true
+
+                    2 -Ele está validando que tem a class active e mandando um alert;
+                         if (h1.classList.contains('active')) {
+                             alert('Existe a classe active')
+                         }
+    
+    className:
+        Ele retorna todos as clases da tag:
+            váriavel.className // "classe1 classe2"
+        
+        Exemplo:
+             const h1 = document.querySelector('h1')
+ 
+             console.log(h1.className) // 'active teste1 teste2'
+
+
+
+Encontrando Elementos:
+    Pai:
+        Podemos encontar usando dois comandos: parentElement e parentNode. Aboms são similares mas o parentElement é mais recomendado pois ele busca apenas a tag;
+
+            Exemplo:
+                1 - Ele busca o pai do elemento e o imprime:
+                     const strong = document.querySelector('strong');
+                     console.log(strong.parentElement); // p.paragrafo
+                     console.log(strong.parentNode); // p.paragrafo
+                
+                2 - Ele busca o pai do elemento e o imprime:
+                     const p = document.querySelector('.paragrafo');
+                     console.log(p.parentElement); // div.container
+                     console.log(p.parentNode); // div.container
+
+                3 - Ele busca o pai do elemento e o imprime:
+                     const container = document.querySelector('.container');
+                     console.log(container.parentElement); // body
+                     console.log(container.parentNode); // body
+                
+                4 - Ele busca o pai do elemento e o imprime:
+                     const body = document.querySelector('body');
+                     console.log(body.parentElement); // html
+                     console.log(body.parentNode); // html
+    
+    Filhos: 
+        Podemos acessar os filhos de um elemento usando as funções: children, childNodes, firstChild, firstElementChild, lastChild e lastElementChild:
+
+            children:
+                Ele tem um grande problema posi retorna as tags filhos em ordem, com o 'HTML COLLECTION' e isso faz com que a lista que gera não seja interavel;
+
+                    Exemplo:
+                         const container = document.querySelector('.container')
+                         console.log(container.children) // HTML COLLECTION
+
+            childNodes:
+                Ele tambem retorna todos os nós filhos, inclusive textos e comentários. Então no caso se tiver espaçamento vai retornar com um 'Text' indesejavel, porem, tem como reverter isto;
+
+                Exemplos:
+                    1 - Todos os nós, inclusive textos (comentários, espaços em branco), são considerados como childNodes:
+                         const container = document.querySelector('.container')
+                         console.log(container.childNodes) // NodeList
+                    
+                    2 - Para reverter isso utilizamos uma gambiarra:
+                         const children = Array.from(container.childNodes); // Ele transforma nosoo fake array em uma array de verdade
+ 
+                         console.log(children);
+ 
+                         children.forEach((res) => {
+                             console.log(res)
+                         })
+                
+            firstChild:
+                Ele vai o primeiro filho da tag seleciona; Não o elemento;
+                    
+                    Exemplo:
+                        1 - Ele retorna um '#text" pois está identado;
+                             const container = document.querySelector('.container');
+                             console.log(container.firstChild); // #text
+                    
+                        2 - Mesma coisa pelo mesmo motivo;
+                            const p = document.querySelector('.paragrafo');
+                            console.log(p.firstChild); // #text
+            
+            firstElementChild:
+                Ele realmente retorna o primeiro elemento filho;
+
+                    Exemplo:
+                        1 - Ele está retornado h1 pois esse é realmente o primeiro elemento;
+                             const container = document.querySelector('.container');
+                             console.log(container.firstElementChild); // h1
+                    
+                        2 - Ele está retornado strong pois ele é o primeiro elemento;
+                             const p = document.querySelector('.paragrafo');
+                             console.log(p.firstElementChild) // strong
+            
+            lastChild:
+                Tem o mesmo problema do 'firstChild';
+                     const container = document.querySelector('.container')
+                     console.log(container.lastChild) // #text
+            
+            lastElementChild:
+                Retorna o último elemento filho;
+                     const container = document.querySelector('.container')
+                     console.log(container.lastElementChild) // p#paragrafo
+    
+    Irmãos:
+        São elementão que estão compartilhando o mesmo elemeneto pai.
+
+        nextSibling:
+            Ele tem o mesmo problema do 'firstChild' e 'lastChild', mas serve para os próximos irmãos.
+
+                Exemplo:
+                     const h1 = document.querySelector('h1');
+                     console.log(h1.nextSibling) // #text (O espaço em branco entre a tag de fechamento da h1)
+        
+        nextElementSibling: 
+            Mesma  coisa que 'nextSibling', porém somente retorna elementos, não textos ou outros tipos de nós.
+                
+                Exemplo:
+                     const h1 = document.querySelector('h1');
+                     console.log(h1.nextElementSibling) // p.paragrafo
+        
+        previusSibling:
+            Serve para ver o irmão que está antes dele e tem mesmo problema que 'firstChild' e 'lastChild' retorna um "text":
+
+                Exemplo:
+                    const p = document.querySelector('.paragrafo')
+                    console.log(p.previousSibling) // #text
+    
+        previusElementSibling:
+            Mesma coisa que o previousSibling mas ele retorna o irmão em formato de Elemento, ou seja, um element
+                
+                Exemplo:
+                     const p = document.querySelector('.paragrafo')
+                     console.log(p.previousElementSibling) //retorna o elemento anterior, se não tiver retorna null
+    
+
+
+Adicionanado Elementos:
+    append:
+        serve para apenas colocar um texto avulso sem tags:
+
+            Exemplo:
+                 const container = document.querySelector('.container');
+
+                 container.append('Ola, mundo!') // Ola, mundo!
+                 container.append('<p>Ola, mundo!</p>') // <p>Ola, mundo!</p>
+                
+                Isso que ira apracer no html;
+    
+    appendChild:
+        Serve para adicionar tags no html e nessas tags pode se ter textos ou outras coisas;
+            Exemplo:
+                 const container = document.querySelector('.container');
+                 const newDiv = document.createElement('div')
+                 newDiv.innerText = 'Ola, mundo!'
+                 container.appendChild(newDiv)
+                Para fazer com que o appendChild devemos iniciar uma nova váriavel contendo o "document.createElement()" e nesse no elemeneto adicionamos o texto e colocamos o elemeto com o texto dentro do "appendChild()"
+
+    insertBefore:
+        É adicionar um lemento antes de outro:
+
+            Exemplo:
+                 const container = document.querySelector('.container');
+                 const paragrafo = container.querySelector('.paragrafo')
+                 const newH2  = document.createElement('h2');
+                 newH2.innerText = 'Novo H2';
+ 
+                 container.insertBefore(newH2, paragrafo)
+                Estamos criando um novo elemento h2 e inserindo ele antes do elemento com a class "paragrafo";
+    
+    before e after:
+        befor = adiciona um elemeneto/text antes do elemento escolhido:
+            váriavel.before(novoElemento);
+        
+        after = adiciona um elemeneto/text depois do elemento escolhido:
+            váriavel.after(novoElemento);
+        
+        Exemplo:
+            1 - Ele está adicionando os Text antes e depois do container
+                 const container = document.querySelector('.container');
+ 
+                 container.after('Ola mundo') // Ola mundo
+                 container.after('<p>Ola mundo</p>') // <p>Ola mundo</p> 
+ 
+                 container.before('Ola mundo') // Ola mundo
+                 container.before('<p>Ola mundo</p>') // <p>Ola mundo</p> 
+            
+            2 - Ele adiocana mas agora como paragrafo:
+                const container = document.querySelector('.container');
+ 
+                const newP = document.createElement('p');
+                const newP2 = document.createElement('p');
+                newP.innerText = 'Ola mundo'
+
+                container.after(newP)
+                container.before(newP2)

@@ -930,4 +930,15 @@ Comandos úteis:
              console.log(balancete)
 
         Onde "0" é o numero que o total inicia e vai incrementando;
+    
+    Alert:
+        Mostra  um alerta na tela com as informações propostas;
+             alert("Pedido: \n"+ `pedido`)
+
+        Pode colocar em um if por exemplo;
+            if (temRefri){
+                alert('Tem refri');
+            }else{
+                alert('Não tem refri')
+            };
         
