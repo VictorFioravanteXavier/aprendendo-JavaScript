@@ -466,3 +466,463 @@ Adicionanado Elementos:
 
                 container.after(newP)
                 container.before(newP2)
+
+
+
+Evento:
+    Os eventos são manipulados através da propriedade on + nome do evento, ex:
+    Tem várias formas de chamar um evento uma das formas é colocar o "onclick" no html;
+        
+        Exemplo:
+            Html:
+                 <button onclick="acionarAlert(123)">Acionar Alert</button>
+            
+            JavaScript:
+                 const acionarAlert = (value) => {
+                    alert(value);
+                 }
+            
+            No caso se o button for clicado a função será executada, com isso vai abrir um pop up com o valor que foi passado para ela. Não é recomendado usar pois a manutenção ficaria mais dificil;
+        
+    Manipulador de Evento:
+        Nível 0:
+            Os manipuladores de entos nível zero são atribuídos diretamente às tags HTML, usando a sintaxe on + nome do evento.
+            Adiciona apenas um ouvinte a um elemento, por isso não funciona se eu adicionar mais de um elemento ao mesmo tempo.
+
+            Exemplo:
+                 const btn = document.querySelector('button');
+
+                 btn.onclick = function alertOne(){
+                     alert(123)
+                 }
+ 
+                 btn.onclick = function alertTwo(){
+                     alert(456)
+                 }
+
+                 // Saida: alert(456)
+                
+                Podemos abservar que fizemos de uma forma parecida com o exemplo acima mas somente usando o JavaScript "btn.onclick" funciona da mesma forma mas o comando que é executado é sempre o ultimo atribuido;
+
+        Nível 2:
+            Os eventos de nível 2 tambem são no JavaScript mas com a utilização de funções arrow e os métodos "addEventListener" e "removeEventListener".
+
+            Comandos:
+                click      = Se clicado 
+                mouseover  = Se o mouse estiver sobre o elemento
+                mouseleave = Se o mouse sair do elemento
+                submit     = Quando o button é clicado
+                input      = É acionado assim que muda o Input
+                change     = É acionado assim que muda de lugar
+
+            Exemplo:
+                1 - Se eu clicar no button ele vai fazer os dois comandos ao contrario do "onclick" que manda o ultimo.
+                     const btn = document.querySelector('button');
+
+                     btn.addEventListener('click', (event) => {
+                         console.log(1)
+                     });
+ 
+                     btn.addEventListener('click', (event) => {
+                         console.log(2)
+                     }); 
+                
+                2 - Essa forma é mais utilizada e permite que o evento seja executado em qualquer ordem, sem a necessidade de remover um ou outro manipulador de eventos. Se clicado ele vai mudar a cor de fundo do site e se passar o mouse por cima do botão ele ira mudar a cor de fundo para braco novamente;
+                     const btn = document.querySelector('button');
+                     const body = document.querySelector('body');
+ 
+                     btn.addEventListener('click', (event) => {
+                         body.style.backgroundColor = 'red';
+                     });
+ 
+                     btn.addEventListener('mouseover', (event) => {
+                         body.style.backgroundColor = '#FFF';
+                     });
+                
+                3 - Enquanto o mouse estiver no button o background vai ficar vermelho se retirado ele volta para branco.
+                    const btn = document.querySelector('button');
+                    const body = document.querySelector('body');
+
+                    btn.addEventListener('click', (event) => {
+                        body.style.backgroundColor = 'red';
+                    });
+
+                    btn.addEventListener('mouseleave', (event) => {
+                        body.style.backgroundColor = '#FFF';
+                    });
+    
+    Removendo eventos:
+        Tem como remover eventos de Nível 2, usando a função removeEventListener() e passando os mesmos parâmetros que foram utilizados no addEventListener();
+
+        Exemplo:
+            1 - Ele está adicionanado um Event Listener e logo em seguida ele é removido.
+                 const btn = document.querySelector('button');
+ 
+                 const acioarAlert = () => {
+                     alert(123)
+                 }
+  
+                 btn.addEventListener('click', acioarAlert)
+                 btn.removeEventListener('click', acioarAlert)
+
+            2 - É uma forma de passar o alert só uma vez.
+                 const btn = document.querySelector('button');
+ 
+                 const acioarAlert = () => {
+                     let validador = false
+                     alert(123)
+                     validador = true
+                     if (validador){
+                         btn.removeEventListener('click', acioarAlert)
+                     }
+                 }
+ 
+                 btn.addEventListener('click', acioarAlert)
+
+    Previnindo que eventos sejam feitos:
+        Serve para prvinir que um efeito em html seja executado usando o comando .preventDefault():
+
+            Exemplo:
+                html:
+                     <a href="https://vidafulllstack.com.br" target="_blank">
+                         Acessar o site Vidafulllstack
+                     </a>
+
+                JavaScript:
+                     const link = document.querySelector('a')
+ 
+                     link.addEventListener('click', (event) =>{
+                         event.preventDefault();
+                     })
+
+                O evento que aconteceria era de abrir a página, mas com o preventDefault(), ele previne isso e não abre ela;
+    
+    Delegando um evendo:
+        Básicamente é adicionar um ou mais elementos a um pai, e quando algum dos filhos for clicados ele vai procurar no pai por um determinado elemento filho.
+        Então é em vez de adicionar um evendo para cada filho adicionamos um evendo no pai, e dentro do callback verificamos qual elemento foi clicado assim fazendo alguma função.
+
+        Exemplo:
+            HTMl:
+                 <ul class="menu">
+                     <li class="home">Home</li>
+                     <li class="sobre">Sobre</li>
+                     <li class="contato">Contato</li>
+                 </ul>
+        
+            JavaScript:
+                 const menu = document.querySelector('.menu')
+ 
+                 menu.addEventListener('click', (event) => {
+                     const { target } = event;
+                     
+                    switch (target.getAttribute('class')) {
+                         case 'home':
+                             console.log('clicado em home')
+                             break;
+                        
+                         case 'sobre':
+                             console.log('clicado em sobre')
+                            break;
+                     
+                         case 'contato':
+                             console.log('clicado em contato')
+                             break;
+                     
+                         default:
+                             break;
+                     }
+                 })
+            
+            Ele está pegando o ul que tem a class menu, adicionando um evendo caso clicado e verificando qual elemeneto foi clicado, e dependendo do elemento ele vai fazer algo;
+    
+    Validando eventos:
+        Se por algum acasso não existir um id, class, etc no seu código ele não vai fazer alquele evento
+
+        Exemplo:
+            1 - Existem duas formas de validar isso com if:
+                 const menu = document.querySelector('.menu')
+                 if (menu){
+                     menu.addEventListener('click', (event) => {
+                         const { target } = event;
+                         
+                         switch (target.getAttribute('class')) {
+                             case 'home':
+                                 console.log('clicado em home')
+                                 break;
+                             
+                             case 'sobre':
+                                 console.log('clicado em sobre')
+                                 break;
+                         
+                             case 'contato':
+                                 console.log('clicado em contato')
+                                 break;
+                         
+                             default:
+                                 break;
+                         }
+                     })
+                 }
+            
+            2 - usando "?":
+                const menu = document.querySelector('.menu')
+
+                menu?.addEventListener('click', (event) => {
+                    const { target } = event;
+                    
+                    switch (target.getAttribute('class')) {
+                        case 'home':
+                            console.log('clicado em home')
+                            break;
+                        
+                        case 'sobre':
+                            console.log('clicado em sobre')
+                            break;
+                    
+                        case 'contato':
+                            console.log('clicado em contato')
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                })
+            
+            Ambos tem a mesma funcionalidade.
+
+
+
+Formulários:
+    Acessando:
+        Html:
+             <form action="..." method="get" id="registration">
+             <label>
+                 Name:
+                 <input type="text" name="name">
+             </label>
+             <br />
+             <label>
+                 Senha:
+                 <input type="password" name="password">
+             </label>
+             <br />
+             <button>Registration</button>
+             </form>
+
+        Para acessar um formulario se faz de uma maneira diferente:
+             const form = document.forms.namedItem('registration');
+        No caso estamos em vez de chamar o "querySelector" uzamos o "forms.namedItem" com o id do item no parentesis.
+        
+        Mas para acessar elemenetos e dar um comando para esse formulario:
+             form.addEventListener('submit', (event) => {
+                 event.preventDefault();
+  
+                 const name = form.name.value;
+                 const password = form.password.value;
+ 
+                 console.log(name, password)
+             })
+        O evento é chamado quando apertamos o botão. E para acessar colocamos a atribuição que está dentro da tag 'name' do html e usamos o value pois é um input;
+
+    FormData:
+        É uma interface fornecida pelo JavaScript que permite a criação e manipulação de objetos que representam dados de formulários HTML.
+
+        HTML:
+             <form action="..." method="get" id="registration">
+                 <label>
+                     Name:
+                     <input type="text" name="name">
+                 </label>
+                 <br />
+                 <label>
+                     Senha:
+                     <input type="password" name="password">
+                 </label>
+                 <br />
+                 <button>Registration</button>
+             </form>
+
+        JavaScript:
+             const form = document.forms.namedItem('registration');
+             form.addEventListener('submit', (event) => {
+                 event.preventDefault();
+  
+                 const name = form.name.value;
+                 const password = form.password.value;
+ 
+                 console.log(name, password)
+             })
+        
+        
+        Para inicar um FormData utilizamos:
+             const nome Váriavel = new FormData(sua ConstForm);
+            Esse comando é para colocalo em uma váriavel e assim fazer seus comandos o suaConstForm seria a const que seria referencia np código ficaria:
+                 const formData = new FormData(form);
+        
+        
+        Para pegar um valor especifico tipo o "name" ou a "password" utilzamos:
+             formData.get('Dentro do name do html')
+            Ele passa o valor digitado dentro do input e no nosso código ficaria assim:
+                 console.log(formData.get('name'))
+                 console.log(formData.get('password'))
+        
+
+        Tambem tem como de em vez de colocar os todos os dados de uma vez podemos usar:
+
+             formData.set('nome qualquer', váriavel atribuida a um input dentro do form);
+
+            No caso ele vai ganhar uma nova "váriavel" que tera o valor passado em outra exemplo:
+                 const name = form.name.value; // pega o valor de name
+                 const password = form.password.value; // pega o valor de password
+    
+                 formData.set('name', name) // seta qual a chave para a váriavel name
+                 formData.set('password', password) // seta qual a chave para a váriavel password
+        
+
+        Para validar se o formData tem uma chave especifica utilzamos:
+             formData.has(nome da chave); // true ou false
+            No código ficaria:
+                 if (formData.has('name') || formData.has('password')){
+                     console.log(formData.get('name'))
+                     console.log(formData.get('password'))
+                 }
+        
+
+        E para deletar um chave com sua váriavel usamos:
+             formData.delete(Nome da chave)
+            No código ficaria:
+                 formData.delete('name')
+                 console.log(formData.has('name')) // false
+
+
+    Manipulando Radio Button:
+        Para maniplar um radio button precisamos entender algumas coisas:
+             radio.forEach((res) => {
+                if (res.checked){
+                     console.log(res)
+                 }
+             })
+            Tem como verificar que ele stá celecionado usando o ".checked".
+        HTML:
+             <form action="..." method="get" id="select-radio">
+                <label>
+                     HTML
+                     <input type="radio" name="radio" value="HTML5">
+                 </label>
+                 <br>
+                <label>
+                     CSS3
+                     <input type="radio" name="radio" value="CSS3">
+                 </label>
+                 <br>
+                 <label>
+                      JavaScript
+                    <input type="radio" name="radio" value="JavaScript">
+                 </label>
+                 <br>
+                 <br>
+                 <button>Select your favorite!</button>
+             </form>
+             <div id="submit"></div>
+             <div id="change"></div>
+            
+        JavaScript:
+            const form = document.forms.namedItem('select-radio');
+             const submit = document.querySelector('#submit')
+             const change = document.querySelector('#change')
+ 
+ 
+             form.addEventListener('submit', (event) =>{
+                 event.preventDefault();
+                 const radio = form.radio;
+                 submit.innerHTML = radio.value
+             })
+
+             form.radio.forEach((res) => {
+              res.addEventListener("change", (event) => {
+                    const { target } = event;
+ 
+                     if (target.checked) {
+                     change.innerHTML = target.value;
+                     }
+                 });
+             });
+    
+        1° form.addEventListener:
+            estamos esperdando o usuário marcar alguma caixa e clicar em submit para assim colocar/mudar o innerHTML da div#submit;
+        
+        2° form.radio.forEach:
+            Estamos esperando o usuário selecionar algum botão e quando selecionado ele coloca/muda o innerHTML da div#change;
+        
+    Manipulando Checkbox:
+        HTML:
+            <form action="..." method="get" id="select-checkbox">
+             <label>
+                 HTML
+                 <input type="checkbox" name="checkbox" value="HTML5">
+             </label>
+             <br>
+            <label>
+                 CSS3
+                  <input type="checkbox" name="checkbox" value="CSS3">
+            </label>
+              <br>
+            <label>
+                 JavaScript
+                 <input type="checkbox" name="checkbox" value="JavaScript">
+             </label>
+             <br>
+             <br>
+             <button>Select your favorite!</button>
+         </form>
+         <div id="submit"></div>
+         <div id="change"></div>
+        
+
+        JavaScript:
+             const form = document.forms.namedItem('select-checkbox');
+             const submit = document.querySelector('#submit')
+             const change = document.querySelector('#change')
+ 
+ 
+             let checkedValues = [];
+ 
+             form.addEventListener('submit', (event)=>{
+                 event.preventDefault();
+                 submit.innerHTML = checkedValues;
+             }) 
+ 
+             form.checkbox.forEach((element) => {
+                 element.addEventListener('change', (event)=>{
+                     hasChecked(event, element);
+                     change.innerHTML = checkedValues;
+                 })
+              });
+ 
+             const hasChecked = (event,element) => {
+                const { target } = event;
+ 
+                 if (target.checked){
+                     return checkedValues.push(element.value);
+                 }
+ 
+                 if (!target.checked){
+                     return checkedValues.map((checkvalue, index) =>{
+                         if (element.value == checkvalue) {
+                             return checkedValues.splice(index, 1);
+                         }
+                     })
+                 }
+ 
+             }
+        
+        1° form.addEventListener:
+            Se o usuário clicar em subimit vai mostrar os campos selecionados por ele;
+        
+        2° form.checkbox.forEach:
+            Para cada checkbox clicado vai somar no elemenet e a função addEventListener está no modo change então a cada elemento selecionado ele vai sofrer uma mudança;
+        
+        3° hasChecked
+            Ele ta verificando se o checkbox está seleciona se tiver o valor dela vai ser adicionada na array checkedValues e se estiver/for dechecado ele vai remover da array verificando se ele está dentro dela;
+        
+        
